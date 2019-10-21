@@ -1,11 +1,18 @@
 import uproot
 import numpy as np
 
+reference = None
+
 
 def check_truth(df):
-    reference = uproot.open('https://cern.ch/starterkit/data/advanced-python-2018/real_data.root',
-                            httpsource={'chunkbytes': 10*1024*1024, 'limitbytes': 33554432, 'parallel': 64}
-                            )['DecayTree'].pandas.df(['Jpsi_M'])
+    global reference
+
+    if reference is None:
+        print('Loading reference dataset, this will take a moment...')
+        reference = uproot.open(
+            'https://cern.ch/starterkit/data/advanced-python-2018/real_data.root',
+            httpsource={'chunkbytes': 10*1024*1024, 'limitbytes': 33554432, 'parallel': 64}
+        )['DecayTree'].pandas.df(['Jpsi_M'])
 
     reference['original_index'] = np.arange(len(reference))
 
