@@ -12,7 +12,7 @@ def check_truth(df):
         reference = uproot.open(
             'https://cern.ch/starterkit/data/advanced-python-2018/real_data.root',
             httpsource={'chunkbytes': 10*1024*1024, 'limitbytes': 33554432, 'parallel': 64}
-        )['DecayTree'].pandas.df(['Jpsi_M'])
+        )['DecayTree']['Jpsi_M'].arrays(library='pd')
 
     reference['original_index'] = np.arange(len(reference))
 
