@@ -9,9 +9,8 @@ def check_truth(df):
 
     if reference is None:
         print('Loading reference dataset, this will take a moment...')
-        reference = uproot.open(
-            'https://cern.ch/starterkit/data/advanced-python-2018/real_data.root'
-        )['DecayTree']['Jpsi_M'].arrays(library='pd')
+        with uproot.open('https://cern.ch/starterkit/data/advanced-python-2018/real_data.root') as file:
+            reference = file['DecayTree']['Jpsi_M'].arrays(library='pd')
 
     reference['original_index'] = np.arange(len(reference))
 
